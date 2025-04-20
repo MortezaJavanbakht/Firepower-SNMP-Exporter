@@ -23,6 +23,7 @@ This repository provides a comprehensive setup for monitoring Cisco Firepower fi
 2. **Configure SNMP Exporter**:
    - Copy the provided `snmp.yml` configuration file to your SNMP Exporter directory.
    - Update the file with your Firepower firewall's IP address and SNMP community string.
+   - Note: These configurations do not include IF-MIB, and related metrics must be monitored separately.
 
 3. **Set Up Prometheus Alerts**:
    - Add the `alerts.yml` file to your Prometheus rules directory.
