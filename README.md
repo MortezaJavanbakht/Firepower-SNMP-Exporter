@@ -36,6 +36,7 @@ This repository provides a comprehensive setup for monitoring Cisco Firepower fi
    - In Grafana, navigate to **Dashboards** > **Import**.
    - Upload the `grafana_dashboard.json` file from this repository.
    - Configure the data source to point to your Prometheus instance.
+   - Configure the variables to display only the firewalls you want.
 
 ## Usage
 - Ensure SNMP Exporter is running and scraping metrics from the Firepower firewall.
