@@ -1,0 +1,663 @@
+groups:
+- name: FirepowerFirewallAlerts
+  rules:
+  # System CPU and Memory Alerts
+  - alert: HighCPUUtilization
+    expr: cseSysCPUUtilization > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU Utilization ({{ $value }}%)"
+      description: "Average CPU utilization on server {{ $labels.instance }} is above 80%"
+      help: "The average utilization of CPU on the active supervisor"
+
+  - alert: CriticalCPUUtilization
+    expr: cseSysCPUUtilization > 95
+    for: 3m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Critical CPU Utilization ({{ $value }}%)"
+      description: "Average CPU utilization on server {{ $labels.instance }} is above 95%"
+      help: "The average utilization of CPU on the active supervisor"
+
+  - alert: HighMemoryUtilization
+    expr: cseSysMemoryUtilization > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Memory Utilization ({{ $value }}%)"
+      description: "Average memory utilization on server {{ $labels.instance }} is above 80%"
+      help: "The average utilization of memory on the active supervisor"
+
+  - alert: CriticalMemoryUtilization
+    expr: cseSysMemoryUtilization > 95
+    for: 3m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Critical Memory Utilization ({{ $value }}%)"
+      description: "Average memory utilization on server {{ $labels.instance }} is above 95%"
+      help: "The average utilization of memory on the active supervisor"
+
+  # Blade Availability and Operation
+  - alert: BladeUnavailable
+    expr: cfprComputeBladeAvailability != 1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Blade Unavailable"
+      description: "Blade {{ $labels.Description }} is in unavailable state"
+      help: "unavailable-0, available-1"
+
+  - alert: BladeOperStateFailure
+    expr: cfprComputeBladeOperState >= 30 and cfprComputeBladeOperState <= 63
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Blade Operational State Failure"
+      description: "Blade {{ $labels.Description }} is in failed state ({{ $value }})"
+      help: "indeterminate-0, unassociated-1, ok-10, discovery-11, config-12, unconfig-13, powerOff-14, restart-15, maintenance-20, test-21, computeMismatch-29, computeFailed-30, degraded-31, discoveryFailed-32, configFailure-33, unconfigFailed-34, testFailed-35, maintenanceFailed-36, removed-40, disabled-41, inaccessible-50, thermalProblem-60, powerProblem-61, voltageProblem-62, inoperable-63, decomissioning-101, decomissioned-102, biosRestore-201, cmosReset-202, diagnostics-203, diagnosticsFailed-204, pendingReboot-210, pendingReassociation-211, svnicNotPresent-212"
+
+  - alert: BladePowerFailure
+    expr: cfprComputeBladeOperPower != 1 and cfprComputeBladeOperPower != 10
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Blade Power Failure"
+      description: "Blade {{ $labels.Description }} has power issues ({{ $value }})"
+      help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+
+  # Board Status Alerts
+  - alert: BoardOperStateFailure
+    expr: cfprComputeBoardOperState != 1 and cfprComputeBoardOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Board Operational State Failure"
+      description: "Board {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: BoardCmosVoltageIssue
+    expr: cfprComputeBoardCmosVoltage > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Board CMOS Voltage Issue"
+      description: "Board {{ $labels.Description }} has CMOS voltage issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  - alert: BoardPowerIssue
+    expr: cfprComputeBoardPower != 1 and cfprComputeBoardPower != 10
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Board Power Issue"
+      description: "Board {{ $labels.Description }} has power issues ({{ $value }})"
+      help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+
+  - alert: BoardThermalIssue
+    expr: cfprComputeBoardThermal > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Board Thermal Issue"
+      description: "Board {{ $labels.Description }} has thermal issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Board Controller Alerts
+  - alert: BoardControllerOperStateFailure
+    expr: cfprComputeBoardControllerOperState != 1 and cfprComputeBoardControllerOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Board Controller Operational State Failure"
+      description: "Board Controller {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: BoardControllerThermalIssue
+    expr: cfprComputeBoardControllerThermal > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Board Controller Thermal Issue"
+      description: "Board Controller {{ $labels.Description }} has thermal issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Temperature Alerts
+  - alert: HighTemperature
+    expr: cfprComputeMbTempStatsFmTempSenIo > 80 or cfprComputeMbTempStatsFmTempSenRear > 80 or cfprComputeMbTempStatsFmTempSenRearL > 80 or cfprComputeMbTempStatsFmTempSenRearR > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Temperature"
+      description: "High temperature detected on component {{ $labels.Description }}"
+
+  - alert: TemperatureSuspect
+    expr: cfprComputeMbTempStatsSuspect == 1
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Temperature Status Suspect"
+      description: "Temperature readings for {{ $labels.Description }} are suspect"
+      help: "true-1, false-2"
+
+  # PSU Alerts
+  - alert: PSUControlOperStateFailure
+    expr: cfprComputePsuControlOperState > 1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "PSU Control Operational State Failure"
+      description: "PSU Control {{ $labels.Description }} is in failed or degraded state ({{ $value }})"
+      help: "unknown-0, ok-1, failed-2, degraded-3"
+
+  - alert: PSUOutputPowerStateIssue
+    expr: cfprComputePsuControlOutputPowerState > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "PSU Output Power State Issue"
+      description: "PSU Output Power {{ $labels.Description }} has issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Processor Environment Alerts
+  - alert: ProcessorEnvStatsSuspect
+    expr: cfprProcessorEnvStatsSuspect == 1
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Processor Environment Status Suspect"
+      description: "Processor environment readings for {{ $labels.Description }} are suspect"
+
+  - alert: ProcessorHighTemperature
+    expr: cfprProcessorEnvStatsTemperature > 85
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Processor High Temperature"
+      description: "Processor {{ $labels.Description }} temperature is above threshold ({{ $value }})"
+
+  - alert: ProcessorCriticalTemperature
+    expr: cfprProcessorEnvStatsTemperature > 95
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Processor Critical Temperature"
+      description: "Processor {{ $labels.Description }} temperature is critically high ({{ $value }})"
+
+  # Processor Unit Alerts
+  - alert: ProcessorOperStateFailure
+    expr: cfprProcessorUnitOperState != 1 and cfprProcessorUnitOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Processor Operational State Failure"
+      description: "Processor {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: ProcessorPerfIssue
+    expr: cfprProcessorUnitPerf > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Processor Performance Issue"
+      description: "Processor {{ $labels.Description }} has performance issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  - alert: ProcessorThermalIssue
+    expr: cfprProcessorUnitThermal > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Processor Thermal Issue"
+      description: "Processor {{ $labels.Description }} has thermal issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Chassis Alerts
+  - alert: ChassisHighFaultAggregate
+    expr: cfprEquipmentChassisFltAggr > 200
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Chassis High Fault Aggregate"
+      description: "Chassis {{ $labels.Description }} has high fault aggregate value ({{ $value }})"
+
+  - alert: ChassisLicenseState
+    expr: cfprEquipmentChassisLicState > 1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Chassis License State Issue"
+      description: "Chassis {{ $labels.Description }} has license state issues ({{ $value }})"
+      help: "unknown-0, licenseOk-1, licenseInsufficient-2, licenseGraceperiod-3, licenseExpired-4, notApplicable-5"
+
+  - alert: ChassisOperStateFailure
+    expr: cfprEquipmentChassisOperState > 3
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Chassis Operational State Failure"
+      description: "Chassis {{ $labels.Description }} operational state is in failure ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: ChassisPowerIssue
+    expr: cfprEquipmentChassisPower > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Chassis Power Issue"
+      description: "Chassis {{ $labels.Description }} has power issues ({{ $value }})"
+      help: "unknown-0, ok-1, failed-2, inputFailed-3, inputDegraded-4, outputFailed-5, outputDegraded-6, redundancyFailed-7, redundancyDegraded-8"
+
+  - alert: ChassisPowerFailure
+    expr: cfprEquipmentChassisPower > 1 and cfprEquipmentChassisPower < 9
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Chassis Power Failure"
+      description: "Chassis {{ $labels.Description }} has serious power failure ({{ $value }})"
+      help: "unknown-0, ok-1, failed-2, inputFailed-3, inputDegraded-4, outputFailed-5, outputDegraded-6, redundancyFailed-7, redundancyDegraded-8"
+
+  - alert: ChassisThermalIssue
+    expr: cfprEquipmentChassisThermal > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Chassis Thermal Issue"
+      description: "Chassis {{ $labels.Description }} has thermal issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Fan Alerts
+  - alert: FanModuleOperStateFailure
+    expr: cfprEquipmentFanModuleOperState != 1 and cfprEquipmentFanModuleOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Fan Module Operational State Failure"
+      description: "Fan Module {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: FanOperStateFailure
+    expr: cfprEquipmentFanOperState != 1 and cfprEquipmentFanOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Fan Operational State Failure"
+      description: "Fan {{ $labels.Description }} (module {{ $labels.fanModule }}) is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: FanPerfIssue
+    expr: cfprEquipmentFanPerf > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Fan Performance Issue"
+      description: "Fan {{ $labels.Description }} (module {{ $labels.fanModule }}) has performance issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  - alert: FanModuleStatsSuspect
+    expr: cfprEquipmentFanModuleStatsSuspect == 1
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Fan Module Stats Suspect"
+      description: "Fan Module {{ $labels.Description }} stats are suspect"
+      help: "true-1, false-2"
+
+  - alert: FanEnvPerformanceIssue
+    expr: cfprEquipmentFanEnvFanPerf > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Fan Environment Performance Issue"
+      description: "Fan Environment {{ $labels.Description }} has performance issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  - alert: FanStatusFailure
+    expr: cfprEquipmentFanEnvFanStatus > 1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Fan Status Failure"
+      description: "Fan {{ $labels.Description }} has status failure ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  # IO Card Alerts
+  - alert: IOCardHighTemperature
+    expr: cfprEquipmentIOCardStatsAmbientTemp > 80 or cfprEquipmentIOCardStatsDimmTemp > 85 or cfprEquipmentIOCardStatsProcTemp > 85 or cfprEquipmentIOCardStatsTemp > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "IO Card High Temperature"
+      description: "IO Card {{ $labels.Description }} has high temperature readings"
+
+  - alert: IOCardStatsSuspect
+    expr: cfprEquipmentIOCardStatsSuspect == 1
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "IO Card Stats Suspect"
+      description: "IO Card {{ $labels.Description }} stats are suspect"
+      help: "true-1, false-2"
+
+  # PSU Equipment Alerts
+  - alert: PSUOperStateFailure
+    expr: cfprEquipmentPsuOperState != 1 and cfprEquipmentPsuOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "PSU Operational State Failure"
+      description: "PSU {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: PSUPerfIssue
+    expr: cfprEquipmentPsuPerf > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "PSU Performance Issue"
+      description: "PSU {{ $labels.Description }} has performance issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  - alert: PSUPowerIssue
+    expr: cfprEquipmentPsuPower != 1 and cfprEquipmentPsuPower != 10
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "PSU Power Issue"
+      description: "PSU {{ $labels.Description }} has power issues ({{ $value }})"
+      help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+
+  - alert: PSUThermalIssue
+    expr: cfprEquipmentPsuThermal > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "PSU Thermal Issue"
+      description: "PSU {{ $labels.Description }} has thermal issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  - alert: PSUStatsSuspect
+    expr: cfprEquipmentPsuStatsSuspect == 1
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "PSU Stats Suspect"
+      description: "PSU {{ $labels.Description }} stats are suspect"
+      help: "true-1, false-2"
+
+  - alert: PSUHighTemperature
+    expr: cfprEquipmentPsuStatsAmbientTemp > 80
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "PSU High Temperature"
+      description: "PSU {{ $labels.Description }} has high ambient temperature ({{ $value }})"
+
+  - alert: PSUEnvOperStatusFailure
+    expr: cfprEquipmentPsuEnvOperStatus > 1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "PSU Environment Operational Status Failure"
+      description: "PSU Environment {{ $labels.Description }} has operational status failure ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  # Switch Card Alerts
+  - alert: SwitchCardFailure
+    expr: cfprEquipmentSwitchCardAct2FailState == 1
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Switch Card Failure"
+      description: "Switch Card {{ $labels.Description }} ({{ $labels.Rn }}) is in failed state"
+      help: "true-1, false-2"
+
+  - alert: SwitchCardOperStateFailure
+    expr: cfprEquipmentSwitchCardOperState != 1 and cfprEquipmentSwitchCardOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Switch Card Operational State Failure"
+      description: "Switch Card {{ $labels.Description }} ({{ $labels.Rn }}) is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: SwitchCardThermalIssue
+    expr: cfprEquipmentSwitchCardThermal > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Switch Card Thermal Issue"
+      description: "Switch Card {{ $labels.Description }} ({{ $labels.Rn }}) has thermal issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Switch IO Card Alerts
+  - alert: SwitchIOCardOperStateFailure
+    expr: cfprEquipmentSwitchIOCardOperState != 1 and cfprEquipmentSwitchIOCardOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Switch IO Card Operational State Failure"
+      description: "Switch IO Card {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: SwitchIOCardThermalIssue
+    expr: cfprEquipmentSwitchIOCardThermal > 1 or cfprEquipmentSwitchIOCardProcessorThermalState > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Switch IO Card Thermal Issue"
+      description: "Switch IO Card {{ $labels.Description }} has thermal issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Health LED Status
+  - alert: HealthLEDStateWarning
+    expr: cfprEquipmentHealthLedHealthLedState > 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Health LED State Warning"
+      description: "Health LED {{ $labels.Description }} is in warning or critical state ({{ $value }})"
+      help: "normal-0, minor-1, critical-2"
+
+  - alert: HealthLEDColorWarning
+    expr: cfprEquipmentHealthLedColor == 2 or cfprEquipmentHealthLedColor == 3
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Health LED Color Warning"
+      description: "Health LED {{ $labels.Description }} color indicates warning or critical ({{ $value }})"
+      help: "unknown-0, green-1, amber-2, red-3, blue-4"
+
+  # Memory Alerts
+  - alert: MemoryArrayOperStateFailure
+    expr: cfprMemoryArrayOperState != 1 and cfprMemoryArrayOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Memory Array Operational State Failure"
+      description: "Memory Array {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: MemoryArrayPerfIssue
+    expr: cfprMemoryArrayPerf > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Memory Array Performance Issue"
+      description: "Memory Array {{ $labels.Description }} has performance issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  - alert: MemoryUnitOperStateFailure
+    expr: cfprMemoryUnitOperState != 1 and cfprMemoryUnitOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Memory Unit Operational State Failure"
+      description: "Memory Unit {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: MemoryUnitPerfIssue
+    expr: cfprMemoryUnitPerf > 1
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Memory Unit Performance Issue"
+      description: "Memory Unit {{ $labels.Description }} has performance issues ({{ $value }})"
+      help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+
+  # Disk Space Alerts
+  - alert: DiskSpaceLow
+    expr: (cfprSmDiskFileSystemFreeKb / cfprSmDiskFileSystemTotalKb) * 100 < 15
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Disk Space Low"
+      description: "Disk {{ $labels.Description }} has less than 15% free space"
+
+  - alert: DiskSpaceCritical
+    expr: (cfprSmDiskFileSystemFreeKb / cfprSmDiskFileSystemTotalKb) * 100 < 5
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Disk Space Critical"
+      description: "Disk {{ $labels.Description }} has less than 5% free space"
+
+  # Storage Controller Alerts
+  - alert: StorageControllerStatusFailure
+    expr: cfprStorageControllerControllerStatus > 1
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Storage Controller Status Failure"
+      description: "Storage Controller {{ $labels.Description }} status is failed or unresponsive ({{ $value }})"
+      help: "unknown-0, optimal-1, failed-2, unresponsive-3"
+
+  - alert: StorageControllerOperStateFailure
+    expr: cfprStorageControllerOperState != 1 and cfprStorageControllerOperState != 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Storage Controller Operational State Failure"
+      description: "Storage Controller {{ $labels.Description }} is not in operable state ({{ $value }})"
+      help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+
+  - alert: StorageItemNotMounted
+    expr: cfprStorageItemOperState == 4
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Storage Item Not Mounted"
+      description: "Storage Item {{ $labels.Description }} is not mounted ({{ $value }})"
+      help: "unknown-0, clean-1, notClean-2, mounted-3, unmounted-4"
+
+  # Disk State Alerts
+  - alert: StorageLocalDiskFailed
+    expr: cfprStorageLocalDiskDiskState > 1 and cfprStorageLocalDiskDiskState != 2 and cfprStorageLocalDiskDiskState != 3 and cfprStorageLocalDiskDiskState != 4 and cfprStorageLocalDiskDiskState != 5
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Storage Local Disk Failed"
+      description: "Storage Local Disk {{ $labels.Description }} is in failed, offline, or other problem state ({{ $value }})"
+      help: "unknown-0, online-1, unconfiguredGood-2, globalHotSpare-3, dedicatedHotSpare-4, jbod-5, offline-6, rebuilding-7, copyback-8, failed-9, unconfiguredBad-10, predictiveFailure-11, disabledForRemoval-12, foreignConfiguration-13"
+
+  - alert: StorageLocalDiskPredictiveFailure
+    expr: cfprStorageLocalDiskDiskState == 11
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Storage Local Disk Predictive Failure"
+      description: "Storage Local Disk {{ $labels.Description }} has predictive failure state ({{ $value }})"
+      help: "unknown-0, online-1, unconfiguredGood-2, globalHotSpare-3, dedicatedHotSpare-4, jbod-5, offline-6, rebuilding-7, copyback-8, failed-9, unconfiguredBad-10, predictiveFailure-11, disabledForRemoval-12, foreignConfiguration-13"
+
+  # FPGA Alerts
+  - alert: EPMFPGANotOnline
+    expr: cfprEquipmentEpmFpgaIsOnline != 1
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "EPM FPGA Not Online"
+      description: "EPM FPGA {{ $labels.Description }} is not online"
+      help: "true-1, false-2"
+
+  # High Fault Aggregate Alert
+  - alert: HighFaultAggregate
+    expr: cfprComputeBladeFltAggr > 100 or cfprEquipmentChassisFltAggr > 100 or cfprEquipmentFanFltAggr > 50 or cfprEquipmentFanModuleFltAggr > 50 or cfprEquipmentPsuFltAggr > 50 or cfprEquipmentSwitchCardFltAggr > 50 or cfprEquipmentSwitchIOCardFltAggr > 50
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Fault Aggregate"
+      description: "Component {{ $labels.Description }} has high fault aggregate ({{ $value }})"
+
+  # Temperature Monitoring Alerts
+  - alert: HighEnvironmentTemperature
+    expr: cfprEquipmentBladeEnvCpu1Temp > 85 or cfprEquipmentBladeEnvCpu2Temp > 85 or cfprEquipmentBladeEnvCpuTemp > 85 or cfprEquipmentChassisEnvCpuTemp > 85 or cfprEquipmentChassisEnvInletTemp > 40
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Environment Temperature"
+      description: "Environment temperature for {{ $labels.Description }} is high ({{ $value }})"
