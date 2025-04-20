@@ -1,0 +1,1473 @@
+modules:
+  firepower:
+    walk:
+      - 1.3.6.1.4.1.9.9.305.1.1
+      - 1.3.6.1.4.1.9.9.826.1.12.10.1
+      - 1.3.6.1.4.1.9.9.826.1.12.2.1
+      - 1.3.6.1.4.1.9.9.826.1.12.24.1
+      - 1.3.6.1.4.1.9.9.826.1.12.48.1
+      - 1.3.6.1.4.1.9.9.826.1.12.8.1
+      - 1.3.6.1.4.1.9.9.826.1.20.109.1
+      - 1.3.6.1.4.1.9.9.826.1.20.116.1
+      - 1.3.6.1.4.1.9.9.826.1.20.133.1
+      - 1.3.6.1.4.1.9.9.826.1.20.134.1
+      - 1.3.6.1.4.1.9.9.826.1.20.146.1
+      - 1.3.6.1.4.1.9.9.826.1.20.149.1
+      - 1.3.6.1.4.1.9.9.826.1.20.150.1
+      - 1.3.6.1.4.1.9.9.826.1.20.153.1
+      - 1.3.6.1.4.1.9.9.826.1.20.157.1
+      - 1.3.6.1.4.1.9.9.826.1.20.21.1
+      - 1.3.6.1.4.1.9.9.826.1.20.34.1
+      - 1.3.6.1.4.1.9.9.826.1.20.35.1
+      - 1.3.6.1.4.1.9.9.826.1.20.38.1
+      - 1.3.6.1.4.1.9.9.826.1.20.60.1
+      - 1.3.6.1.4.1.9.9.826.1.20.70.1
+      - 1.3.6.1.4.1.9.9.826.1.50.1.1
+      - 1.3.6.1.4.1.9.9.826.1.50.11.1
+      - 1.3.6.1.4.1.9.9.826.1.66.2.1
+      - 1.3.6.1.4.1.9.9.826.1.66.9.1
+      - 1.3.6.1.4.1.9.9.826.1.71.9.1
+      - 1.3.6.1.4.1.9.9.826.1.74.23.1
+      - 1.3.6.1.4.1.9.9.826.1.74.24.1
+      - 1.3.6.1.4.1.9.9.826.1.74.4.1
+    metrics:
+
+      - name: cfprComputeBladeAssociation
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.7
+        type: gauge
+        help: "none-0, establishing-1, associated-2, removing-3, failed-4, throttled-5"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeAvailability
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.8
+        type: gauge
+        help: "unavailable-0, available-1"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.16
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeNumOfAdaptors
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.38
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeNumOfCores
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.39
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeNumOfCoresEnabled
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.40
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeNumOfCpus
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.41
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeOperPower
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.45
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+      - name: cfprComputeBladeOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.47
+        type: gauge
+        help: "indeterminate-0, unassociated-1, ok-10, discovery-11, config-12, unconfig-13, powerOff-14, restart-15, maintenance-20, test-21, computeMismatch-29, computeFailed-30, degraded-31, discoveryFailed-32, configFailure-33, unconfigFailed-34, testFailed-35, maintenanceFailed-36, removed-40, disabled-41, inaccessible-50, thermalProblem-60, powerProblem-61, voltageProblem-62, inoperable-63, decomissioning-101, decomissioned-102, biosRestore-201, cmosReset-202, diagnostics-203, diagnosticsFailed-204, pendingReboot-210, pendingReassociation-211, svnicNotPresent-212"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.2.1.3
+            type: DisplayString
+
+
+      - name: cfprComputeBoardCmosVoltage
+        oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.4
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.3
+            type: DisplayString
+
+      - name: cfprComputeBoardOperPower
+        oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.10
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.3
+            type: DisplayString
+
+      - name: cfprComputeBoardOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.12
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.3
+            type: DisplayString
+
+      - name: cfprComputeBoardPower
+        oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.15
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.3
+            type: DisplayString
+
+      - name: cfprComputeBoardThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.20
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.8.1.3
+            type: DisplayString
+
+
+      - name: cfprComputeBoardControllerOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.12.10.1.8
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.10.1.3
+            type: DisplayString
+
+      - name: cfprComputeBoardControllerPower
+        oid: 1.3.6.1.4.1.9.9.826.1.12.10.1.11
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.10.1.3
+            type: DisplayString
+
+      - name: cfprComputeBoardControllerThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.12.10.1.15
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.10.1.3
+            type: DisplayString
+
+
+      - name: cfprComputeMbTempStatsFmTempSenIo
+        oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.3
+            type: DisplayString
+
+      - name: cfprComputeMbTempStatsFmTempSenRear
+        oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.8
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.3
+            type: DisplayString
+
+      - name: cfprComputeMbTempStatsFmTempSenRearL
+        oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.10
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.3
+            type: DisplayString
+
+      - name: cfprComputeMbTempStatsFmTempSenRearR
+        oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.16
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.3
+            type: DisplayString
+
+      - name: cfprComputeMbTempStatsSuspect
+        oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.21
+        type: gauge
+        help: "true-1, false-2"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.24.1.3
+            type: DisplayString
+
+
+      - name: cfprComputePsuControlOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.12.48.1.10
+        type: gauge
+        help: "unknown-0, ok-1, failed-2, degraded-3"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.48.1.3
+            type: DisplayString
+
+      - name: cfprComputePsuControlOutputPowerState
+        oid: 1.3.6.1.4.1.9.9.826.1.12.48.1.11
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.12.48.1.3
+            type: DisplayString
+
+
+      - name: cfprProcessorEnvStatsSuspect
+        oid: 1.3.6.1.4.1.9.9.826.1.66.2.1.9
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.66.2.1.2
+            type: DisplayString
+
+      - name: cfprProcessorEnvStatsTemperature
+        oid: 1.3.6.1.4.1.9.9.826.1.66.2.1.10
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.66.2.1.2
+            type: DisplayString
+
+      - name: cfprProcessorEnvStatsThresholded
+        oid: 1.3.6.1.4.1.9.9.826.1.66.2.1.14
+        type: OctetString
+        help: "inputCurrent-0, inputCurrentAvg-1, inputCurrentMax-2, inputCurrentMin-3, temperature-4, temperatureAvg-5, temperatureMax-6, temperatureMin-7"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.66.2.1.2
+            type: DisplayString
+
+
+      - name: cfprProcessorUnitOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.11
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.3
+            type: DisplayString
+
+      - name: cfprProcessorUnitPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.13
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.3
+            type: DisplayString
+
+      - name: cfprProcessorUnitPower
+        oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.14
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.3
+            type: DisplayString
+
+      - name: cfprProcessorUnitThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.21
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.66.9.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentChassisFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.10
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentChassisLicState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.24
+        type: gauge
+        help: "unknown-0, licenseOk-1, licenseInsufficient-2, licenseGraceperiod-3, licenseExpired-4, notApplicable-5"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentChassisOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.30
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentChassisPower
+        oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.33
+        type: gauge
+        help: "unknown-0, ok-1, failed-2, inputFailed-3, inputDegraded-4, outputFailed-5, outputDegraded-6, redundancyFailed-7, redundancyDegraded-8"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentChassisThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.38
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.21.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentFanFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: fanModule
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.8
+
+      - name: cfprEquipmentFanOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.10
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: fanModule
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.8
+
+      - name: cfprEquipmentFanPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.12
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: fanModule
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.8
+
+      - name: cfprEquipmentFanPower
+        oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.13
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: fanModule
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.8
+
+      - name: cfprEquipmentFanThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.17
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: fanModule
+            oid: 1.3.6.1.4.1.9.9.826.1.20.34.1.8
+
+
+
+      - name: cfprEquipmentFanModuleFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentFanModuleOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.9
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentFanModulePerf
+        oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.12
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentFanModulePower
+        oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.13
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentFanModuleThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.17
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.35.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentFanModuleStatsAmbientTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.38.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.38.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentFanModuleStatsSuspect
+        oid: 1.3.6.1.4.1.9.9.826.1.20.38.1.9
+        type: gauge
+        help: "true-1, false-2"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.38.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentFanModuleStatsThresholded
+        oid: 1.3.6.1.4.1.9.9.826.1.20.38.1.10
+        type: OctetString
+        help: "ambientTemp-0, ambientTempAvg-1, ambientTempMax-2, ambientTempMin-3"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.38.1.2
+            type: DisplayString
+
+
+      - name: cfprEquipmentHealthLedColor
+        oid: 1.3.6.1.4.1.9.9.826.1.20.60.1.4
+        type: gauge
+        help: "unknown-0, green-1, amber-2, red-3, blue-4"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.60.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentHealthLedHealthLedState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.60.1.5
+        type: gauge
+        help: "normal-0, minor-1, critical-2"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.60.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentIOCardStatsAmbientTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentIOCardStatsDimmTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.8
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentIOCardStatsProcTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.13
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentIOCardStatsSuspect
+        oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.17
+        type: gauge
+        help: "true-1, false-2"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentIOCardStatsTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.18
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentIOCardStatsThresholded
+        oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.22
+        type: OctetString
+        help: "ambientTemp-0, ambientTempAvg-1, ambientTempMax-2, ambientTempMin-3, dimmTemp-4, dimmTempAvg-5, dimmTempMax-6, dimmTempMin-7, procTemp-8, procTempAvg-9, procTempMax-10, procTempMin-11, temp-12, tempAvg-13, tempMax-14, tempMin-15"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.70.1.2
+            type: DisplayString
+
+
+      - name: cfprEquipmentPsuFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.5
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentPsuOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.9
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentPsuPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.12
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentPsuPower
+        oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.13
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentPsuThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.22
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.109.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentPsuStatsAmbientTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.116.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.116.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentPsuStatsSuspect
+        oid: 1.3.6.1.4.1.9.9.826.1.20.116.1.31
+        type: gauge
+        help: "true-1, false-2"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.116.1.2
+            type: DisplayString
+
+      - name: cfprEquipmentPsuStatsThresholded
+        oid: 1.3.6.1.4.1.9.9.826.1.20.116.1.32
+        type: OctetString
+        help: "ambientTemp-0, ambientTempAvg-1, ambientTempMax-2, ambientTempMin-3, input210v-4, input210vAvg-5, input210vMax-6, input210vMin-7, output12v-8, output12vAvg-9, output12vMax-10, output12vMin-11, output3v3-12, output3v3Avg-13, output3v3Max-14, output3v3Min-15, outputCurrent-16, outputCurrentAvg-17, outputCurrentMax-18, outputCurrentMin-19, outputPower-20, outputPowerAvg-21, outputPowerMax-22, outputPowerMin-23"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.116.1.2
+            type: DisplayString
+
+
+      - name: cfprEquipmentSwitchCardAct2FailState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.4
+        type: gauge
+        help: "true-1, false-2"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Rn
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.5
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchCardFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.6
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Rn
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.5
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchCardOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.11
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Rn
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.5
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchCardPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.13
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Rn
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.5
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchCardPower
+        oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.14
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Rn
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.5
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchCardState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.18
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Rn
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.5
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchCardThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.19
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Rn
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.3
+            type: DisplayString
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.133.1.5
+            type: DisplayString
+
+
+      - name: cfprEquipmentSwitchIOCardFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.11
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchIOCardOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.30
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchIOCardPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.34
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchIOCardPower
+        oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.35
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchIOCardProcessorThermalState
+        oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.37
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentSwitchIOCardThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.42
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.134.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentBladeEnvCpu1Temp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.146.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.146.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentBladeEnvCpu2Temp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.146.1.5
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.146.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentBladeEnvCpuTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.146.1.6
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.146.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentChassisEnvCpuTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.149.1.4
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.149.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentChassisEnvInletTemp
+        oid: 1.3.6.1.4.1.9.9.826.1.20.149.1.5
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.149.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentEpmFpgaFltAggr
+        oid: 1.3.6.1.4.1.9.9.826.1.20.150.1.7
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.150.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentEpmFpgaIsOnline
+        oid: 1.3.6.1.4.1.9.9.826.1.20.150.1.8
+        type: gauge
+        help: "true-1, false-2"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.150.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentFanEnvFanPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.20.153.1.5
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.153.1.3
+            type: DisplayString
+
+      - name: cfprEquipmentFanEnvFanStatus
+        oid: 1.3.6.1.4.1.9.9.826.1.20.153.1.8
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.153.1.3
+            type: DisplayString
+
+
+      - name: cfprEquipmentPsuEnvOperStatus
+        oid: 1.3.6.1.4.1.9.9.826.1.20.157.1.5
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.20.157.1.3
+            type: DisplayString
+
+
+      - name: cfprMemoryArrayOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.13
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.3
+            type: DisplayString
+
+      - name: cfprMemoryArrayPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.15
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.3
+            type: DisplayString
+
+      - name: cfprMemoryArrayPower
+        oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.17
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.3
+            type: DisplayString
+
+      - name: cfprMemoryArrayThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.21
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.1.1.3
+            type: DisplayString
+
+
+      - name: cfprMemoryUnitOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.17
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.3
+            type: DisplayString
+
+      - name: cfprMemoryUnitPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.19
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.3
+            type: DisplayString
+
+      - name: cfprMemoryUnitPower
+        oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.20
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.3
+            type: DisplayString
+
+      - name: cfprMemoryUnitThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.26
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.50.11.1.3
+            type: DisplayString
+
+
+      - name: cfprSmDiskFileSystemFreeKb
+        oid: 1.3.6.1.4.1.9.9.826.1.71.9.1.6
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.71.9.1.3
+            type: DisplayString
+
+      - name: cfprSmDiskFileSystemTotalKb
+        oid: 1.3.6.1.4.1.9.9.826.1.71.9.1.8
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.71.9.1.3
+            type: DisplayString
+
+      - name: cfprSmDiskFileSystemUsedKb
+        oid: 1.3.6.1.4.1.9.9.826.1.71.9.1.9
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.71.9.1.3
+            type: DisplayString
+
+
+      - name: cfprStorageControllerControllerStatus
+        oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.4
+        type: gauge
+        help: "unknown-0, optimal-1, failed-2, unresponsive-3"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.3
+            type: DisplayString
+
+      - name: cfprStorageControllerOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.15
+        type: gauge
+        help: "unknown-0, operable-1, inoperable-2, degraded-3, poweredOff-4, powerProblem-5, removed-6, voltageProblem-7, thermalProblem-8, performanceProblem-9, accessibilityProblem-10, identityUnestablishable-11, biosPostTimeout-12, disabled-13, malformedFru-14, fabricConnProblem-51, fabricUnsupportedConn-52, config-81, equipmentProblem-82, decomissioning-83, chassisLimitExceeded-84, notSupported-100, discovery-101, discoveryFailed-102, identify-103, postFailure-104, upgradeProblem-105, peerCommProblem-106, autoUpgrade-107, linkActivateBlocked-108"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.3
+            type: DisplayString
+
+      - name: cfprStorageControllerPerf
+        oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.20
+        type: gauge
+        help: "unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.3
+            type: DisplayString
+
+      - name: cfprStorageControllerPower
+        oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.21
+        type: gauge
+        help: "unknown-0, on-1, test-2, off-3, online-4, offline-5, offduty-6, degraded-7, powerSave-8, error-9, ok-10, failed-11, oirFailed-12, oirInvalid-13, notSupported-100"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.3
+            type: DisplayString
+
+      - name: cfprStorageControllerThermal
+        oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.27
+        help: unknown-0, ok-1, upperNonRecoverable-2, upperCritical-3, upperNonCritical-4, lowerNonCritical-5, lowerCritical-6, lowerNonRecoverable-7, notSupported-100
+        type: gauge
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.74.4.1.3
+            type: DisplayString
+
+      - name: cfprStorageItemOperState
+        oid: 1.3.6.1.4.1.9.9.826.1.74.23.1.5
+        type: gauge
+        help: "unknown-0, clean-1, notClean-2, mounted-3, unmounted-4"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.74.23.1.3
+            type: DisplayString
+
+
+      - name: cfprStorageLocalDiskDiskState
+        oid: 1.3.6.1.4.1.9.9.826.1.74.24.1.7
+        type: gauge
+        help: "unknown-0, online-1, unconfiguredGood-2, globalHotSpare-3, dedicatedHotSpare-4, jbod-5, offline-6, rebuilding-7, copyback-8, failed-9, unconfiguredBad-10, predictiveFailure-11, disabledForRemoval-12, foreignConfiguration-13"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+        lookups:
+          - labels: [snmpIndex]
+            labelname: Description
+            oid: 1.3.6.1.4.1.9.9.826.1.74.24.1.3
+            type: DisplayString
+
+      - name: cseSysCPUUtilization
+        oid: 1.3.6.1.4.1.9.9.305.1.1.1
+        type: gauge
+        help: "The average utilization of CPU on the active supervisor"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+ 
+      - name: cseSysMemoryUtilization
+        oid: 1.3.6.1.4.1.9.9.305.1.1.2
+        type: gauge
+        help: "The average utilization of memory on the active supervisor"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
+ 
+      - name: cseSysUpTime
+        oid: 1.3.6.1.4.1.9.9.305.1.1.10
+        type: gauge
+        help: "The time (in seconds) since the entire system was last re-initialized as a result of reload"
+        indexes:
+          - labelname: snmpIndex
+            type: gauge
